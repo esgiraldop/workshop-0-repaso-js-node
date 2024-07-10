@@ -10,7 +10,6 @@ class NotesManager{
     constructor(){
         localStorage.getItem("notes")===""&&localStorage.removeItem("notes") // Delete local storage variable in case it is empty
         this.notes = JSON.parse(localStorage.getItem("notes")) || []
-        console.log("this.notes: ", this.notes)
     }
 
     // Add a note
@@ -18,17 +17,22 @@ class NotesManager{
         
     }
 
-
     // Edit a note
     editNote(id){
-        console.log(`Editing note ${id}`)
+
     }
 
     // Delete a note
     deleteNote(id){
-        console.log(`Deleting note ${id}`)
+        this.notes = this.notes.filter(note => note.id !== id)
+        console.log("this.notes: ", this.notes)
+        this.saveNotes()
+        this.renderNotes()
     }
 
+    saveNotes(){
+
+    }
 
     // Label a note as important
 
@@ -40,7 +44,6 @@ class NotesManager{
         $notesList.innerHTML = ``
         this.notes.forEach( note => {
             const $li = document.createElement('li')
-            console.log("note.description: ",note.description)
             $li.innerText = note.description
             //Edit button
             const $editButton = document.createElement("button")
