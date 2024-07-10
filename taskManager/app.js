@@ -12,6 +12,7 @@ class Task {
 
 class TaskManager {
     constructor() {
+        localStorage.getItem("notes")===""&&localStorage.removeItem("notes") // Delete local storage variable in case it is empty
         this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         this.loadTasks();
     }
@@ -40,7 +41,6 @@ class TaskManager {
                 break
             }
         }
-        // this.tasks = this.tasks.filter(task => task.id !== id);
         console.log("this.tasks: ", this.tasks)
         this.tasks.forEach(task => task.description = id === task.id?newDescription:task.description)
         console.log("this.tasks: ", this.tasks)
