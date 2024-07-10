@@ -49,9 +49,14 @@ class TaskManager {
     }
 
     toggleTaskComplete(id) {
-        const task = this.tasks.find(task => task.id === id);
+        let task = this.tasks.find(task => task.id === id);
+        task = new Task(task.id, task.description, task.completed)
         if (task) {
             task.toggleComplete();
+            // Replacing task
+            this.tasks.forEach(task_ => {
+                task_.completed = id === task_.id?task.completed:task_.completed
+            })
             this.saveTasks();
             this.renderTasks();
         }
