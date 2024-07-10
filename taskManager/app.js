@@ -33,19 +33,19 @@ class TaskManager {
     editTask(id) {
         let newDescription = ""
         while(!newDescription){
-            const newDescription = prompt("Ingrese nueva descripción de la tarea: ")
+            newDescription = prompt("Ingrese nueva descripción de la tarea: ")
             if(!newDescription){
                 alert("Debe ingresar una descripción")
             }else{
                 break
             }
         }
-        const newTasksList = this.tasks.map(element =>{
-            console.log(element)
-        })
         // this.tasks = this.tasks.filter(task => task.id !== id);
-        // this.saveTasks();
-        // this.renderTasks();
+        console.log("this.tasks: ", this.tasks)
+        this.tasks.forEach(task => task.description = id === task.id?newDescription:task.description)
+        console.log("this.tasks: ", this.tasks)
+        this.saveTasks();
+        this.renderTasks();
     }
 
     toggleTaskComplete(id) {

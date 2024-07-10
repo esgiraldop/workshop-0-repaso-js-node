@@ -182,7 +182,15 @@ document.addEventListener('DOMContentLoaded', () => { //Se agrega un escuchador 
 ```
 
 ### Descripción de la depuración del gestor de tareas
-1. **Se agrega un método para editar la tarea**: 
+
+1. **Se agrega la funcionalidad de editar la tarea**:
+    Primero se agrega el botón de editar en el método "renderTasks" de TaskManager. Luego se le agrega un escuchador que ejecute un callback que contiene un método TaskManager.editTask(). Este método pide al usuario una nueva descripción de la tarea y la inserta en el atributo de la tarea correspondiente.
+
+2. **Se agrega un método para editar la tarea**:
+    En el método TaskManager.toggleTaskComplete() hay un error al llamar el método toggleComplete de la clase Task, puesto que el objeto task no es realmente una instancia de Task, puesto que es tomada del local storage, por lo que es un objeto común y corriente. La corrección del error fue volver "task" en una instancia de "Task" y luego editar la propiedad de completed en el vector this.tasks del TaskManager para que se guardara el vector actualizado en el local storage
+
+3. **Se agrega un archivo de estilos**:
+    El método "renderTasks" de "TaskManager" renderiza la tarea y dependiendo de la propiedad "completed" de la tarea, agrega o no una clase llamada "completed". Entonces se agregó un archivo .css que aplicara un estilo con base en esta clase para poder visualziar en pantalla cuando la tarea es clickeada.
 
 3. **Ejecución**: Probar la aplicación en un navegador y realizar las siguientes acciones:
     - Probar funcionalidad del codigo. Si encuentras errores, depurar el código, corregirlos y generar un informe de los errores encontrados y como
