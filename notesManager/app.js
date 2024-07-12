@@ -1,8 +1,12 @@
 class Note{
-    constructor(id, description, isImportant){
+    constructor(id, description, isImportant=false){
         this.id = id
         this.description = description
         this.isImportant = isImportant
+    }
+
+    toggleIsImportant(){
+        this.important = !this.important
     }
 }
 
@@ -16,7 +20,8 @@ class NotesManager{
     addNote(){
         const newDescription = document.getElementById("add-note-input").value
         document.getElementById("add-note-input").value = ""
-        const newid = this.notes.length?this.notes[this.notes.length - 1]:1
+        const newid = this.notes.length?this.notes[this.notes.length - 1].id + 1:1
+        console.log("newid: ", newid)
         const newNote = new Note(newid, newDescription, false)
         this.notes.push(newNote)
         this.saveNotes()
@@ -27,7 +32,7 @@ class NotesManager{
     editNote(id){
         const newDescription = prompt("Please enter a new description: ")
         this.notes.forEach(note => {
-            note.description = note.id===id&&newDescription
+            note.description = note.id===id?newDescription:note.description
         })
         this.saveNotes()
         this.renderNotes()
@@ -47,6 +52,11 @@ class NotesManager{
     }
 
     // Label a note as important
+    toggleImportant(id){
+        this.notes.forEach(note => note.isImportant = note.id===id?!note.isImportant:note.isImportant)
+        this.saveNotes()
+        this.renderNotes()
+    }
 
     // Store a note in localStorage
 
@@ -57,6 +67,12 @@ class NotesManager{
         this.notes.forEach( note => {
             const $li = document.createElement('li')
             $li.innerText = note.description
+            $li.className = note.isImportant?"important-note":""
+            $li.addEventListener('click', ()=>{
+                console.log("You clicked the list")
+                this.toggleImportant(note.id)
+            })
+            console.log("note.isImportant: ", note.isImportant)
             //Edit button
             const $editButton = document.createElement("button")
             $editButton.innerText = "Edit"
