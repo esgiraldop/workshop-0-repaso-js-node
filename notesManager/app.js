@@ -14,7 +14,11 @@ class NotesManager{
 
     // Add a note
     addNote(){
-        
+        const newDescription = document.getElementById("add-note-input").value
+        document.getElementById("add-note-input").value = ""
+        this.notes.push({id: 1, description: newDescription, important:false})
+        this.saveNotes()
+        this.renderNotes()
     }
 
     // Edit a note
@@ -24,6 +28,7 @@ class NotesManager{
 
     // Delete a note
     deleteNote(id){
+        console.log("this.notes: ", this.notes)
         this.notes = this.notes.filter(note => note.id !== id)
         console.log("this.notes: ", this.notes)
         this.saveNotes()
@@ -31,7 +36,7 @@ class NotesManager{
     }
 
     saveNotes(){
-
+        localStorage.setItem('notes', JSON.stringify(this.notes))
     }
 
     // Label a note as important
@@ -72,11 +77,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const $addNoteButton = document.getElementById("add-note-button")
     notesManager.renderNotes()
     $addNoteButton.addEventListener("click", ()=>{
-        const newDescription = document.getElementById("add-note-input").value
-        document.getElementById("add-note-input").value = ""
-        const notesList = notesManager.notes
-        notesList.push({id: 1, description: newDescription, important:false})
-        localStorage.setItem("notes", JSON.stringify(notesList))
-        notesManager.renderNotes()
+        notesManager.addNote()
     })
 })
