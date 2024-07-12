@@ -16,14 +16,21 @@ class NotesManager{
     addNote(){
         const newDescription = document.getElementById("add-note-input").value
         document.getElementById("add-note-input").value = ""
-        this.notes.push({id: 1, description: newDescription, important:false})
+        const newid = this.notes.length?this.notes[this.notes.length - 1]:1
+        const newNote = new Note(newid, newDescription, false)
+        this.notes.push(newNote)
         this.saveNotes()
         this.renderNotes()
     }
 
     // Edit a note
     editNote(id){
-
+        const newDescription = prompt("Please enter a new description: ")
+        this.notes.forEach(note => {
+            note.description = note.id===id&&newDescription
+        })
+        this.saveNotes()
+        this.renderNotes()
     }
 
     // Delete a note
