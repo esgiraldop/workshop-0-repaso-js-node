@@ -31,6 +31,14 @@ class NotesManager{
     // Edit a note
     editNote(id){
         const newDescription = prompt("Please enter a new description: ")
+        while(!newDescription){
+            newDescription = prompt("Ingrese nueva descripción de la tarea: ")
+            if(!newDescription){
+                alert("Debe ingresar una descripción")
+            }else{
+                break
+            }
+        }
         this.notes.forEach(note => {
             note.description = note.id===id?newDescription:note.description
         })
@@ -40,9 +48,7 @@ class NotesManager{
 
     // Delete a note
     deleteNote(id){
-        console.log("this.notes: ", this.notes)
         this.notes = this.notes.filter(note => note.id !== id)
-        console.log("this.notes: ", this.notes)
         this.saveNotes()
         this.renderNotes()
     }
@@ -57,8 +63,6 @@ class NotesManager{
         this.saveNotes()
         this.renderNotes()
     }
-
-    // Store a note in localStorage
 
     // Render notes
     renderNotes(){

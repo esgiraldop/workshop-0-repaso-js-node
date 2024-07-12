@@ -41,9 +41,7 @@ class TaskManager {
                 break
             }
         }
-        console.log("this.tasks: ", this.tasks)
         this.tasks.forEach(task => task.description = id === task.id?newDescription:task.description)
-        console.log("this.tasks: ", this.tasks)
         this.saveTasks();
         this.renderTasks();
     }
